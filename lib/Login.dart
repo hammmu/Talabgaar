@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'SignUp.dart';
 import 'PrivacyPolicy.dart';
+import 'Database.dart';
 class Login extends StatelessWidget
 {
   @override
@@ -92,6 +93,7 @@ class Input extends StatelessWidget
                             )
                         ),
                         child: TextField(
+                          controller: pass,
                             decoration: InputDecoration(
                                 hintText: "Enter your Password",
                                 hintStyle: TextStyle(color: Colors.grey),
@@ -114,11 +116,22 @@ class Input extends StatelessWidget
                               )
                           ),
                           onPressed: () {
-                            print(phone.text);
-                            print("hi");
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => PrivacyPolicy())
-                            );
+                            String s = phone.text;
+                            if(s.isEmpty)
+                              {
+                                print("empty phone");
+                              }
+                            else if(pass.text.isEmpty)
+                              {
+                                print("empty pass");
+                              }
+                            else
+                              {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => PrivacyPolicy())
+                                );
+                              }
+                            Database.logIn();
                           },
                         )
                     ),
