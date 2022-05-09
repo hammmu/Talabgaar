@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'PrivacyPolicy.dart';
-
+import 'Database.dart';
 class SignUp extends StatelessWidget
 {
   @override
@@ -54,7 +54,8 @@ class SignUp extends StatelessWidget
 
 class SignUpInput extends StatelessWidget
 {
-
+  final name = TextEditingController();
+  final address = TextEditingController();
   final phone = TextEditingController();
   final pass = TextEditingController();
 
@@ -75,7 +76,7 @@ class SignUpInput extends StatelessWidget
                             )
                         ),
                         child: TextField(
-                            controller: phone,
+                            controller: name,
                             decoration: InputDecoration(
                                 hintText: "Name: ",
                                 hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
@@ -93,6 +94,7 @@ class SignUpInput extends StatelessWidget
                             )
                         ),
                         child: TextField(
+                            controller: phone,
                             decoration: InputDecoration(
                                 hintText: "Phone Number:",
                                 hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
@@ -109,6 +111,7 @@ class SignUpInput extends StatelessWidget
                             )
                         ),
                         child: TextField(
+                            controller: address,
                             decoration: InputDecoration(
                                 hintText: "Address:",
                                 hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
@@ -125,6 +128,7 @@ class SignUpInput extends StatelessWidget
                             )
                         ),
                         child: TextField(
+                            controller: pass,
                             decoration: InputDecoration(
                                 hintText: "Password:",
                                 hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
@@ -147,11 +151,25 @@ class SignUpInput extends StatelessWidget
                               )
                           ),
                           onPressed: () {
-                            print(phone.text);
-                            print("hi");
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => PrivacyPolicy())
-                            );
+                            if(name.text.isEmpty) {
+                              print("name empty");
+                            }
+                            else if(phone.text.isEmpty) {
+                              print("phone empty");
+                            }
+                            else if(address.text.isEmpty) {
+                              print("address empty");
+                            }
+                            else if(pass.text.isEmpty) {
+                              print("pass empty");
+                            }
+                            else {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) =>
+                                      PrivacyPolicy())
+                              );
+                              Database.signUp(phone.text, name.text, address.text, pass.text);
+                            }
                           },
                         )
                     ),
